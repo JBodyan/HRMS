@@ -52,6 +52,8 @@ namespace HRMS_Server.Repository.Implementation
             var member = _context.Members.FirstOrDefault(m => m.Id == id);
             if (member == null) return null;
             member.IsRemoved = remove;
+            _context.Members.Update(member);
+            _context.SaveChanges();
             return member;
         }
 
@@ -60,6 +62,8 @@ namespace HRMS_Server.Repository.Implementation
             var member = _context.Members.FirstOrDefault(m => m.Id == id);
             if (member == null) return null;
             member.IsArchived = archive;
+            _context.Members.Update(member);
+            _context.SaveChanges();
             return member;
         }
     }
