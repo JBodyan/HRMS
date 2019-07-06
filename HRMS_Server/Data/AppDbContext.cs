@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HRMS_Server.Models;
 using HRMS_Server.Models.DocumentModel;
 using HRMS_Server.Models.MemberModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

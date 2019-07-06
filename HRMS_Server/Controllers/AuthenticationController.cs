@@ -21,6 +21,7 @@ namespace HRMS_Server.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
+        
         public AuthenticationController(UserManager<User> userManager,IConfiguration configuration)
         {
             _userManager = userManager;
@@ -40,6 +41,7 @@ namespace HRMS_Server.Controllers
             try
             {
                 var result = await _userManager.CreateAsync(user, model.Password);
+                await _userManager.AddToRoleAsync(user, "Manager");
                 return Ok(result);
             }
             catch (Exception ex)
@@ -69,7 +71,8 @@ namespace HRMS_Server.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                return Ok(new {token});
+                var roles = _userManager.GetRolesAsync(user);
+                return Ok(new {token = token, roles = roles});
             }
             else
             {
