@@ -17,7 +17,7 @@ import {
 const styles = theme => ({
     root: {
         maxWidth: 300,
-        height: 550,
+        height: "100%",
         backgroundColor: theme.palette.background.paper,
     },
 

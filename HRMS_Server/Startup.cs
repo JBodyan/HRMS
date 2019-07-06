@@ -40,7 +40,7 @@ namespace HRMS_Server
                 {
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 });
-            services.AddDefaultIdentity<User>()
+            services.AddIdentity<User,IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
             services.Configure<IdentityOptions>(options =>

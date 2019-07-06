@@ -11,15 +11,11 @@ import {
 } from "@material-ui/icons"
 
 export const Header = (props) => {
-  const {toggleSidebar, isShowedSidebar} = props
-  console.log(props)
+  const {toggleSidebar} = props
   return (
     <AppBar>
       <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="Menu" onClick={()=>{
-          const newState = !isShowedSidebar
-          toggleSidebar(newState)
-        }}>
+        <IconButton edge="start" color="inherit" aria-label="Menu" onClick={toggleSidebar}>
           <Menu/>
         </IconButton>
       </Toolbar>

@@ -27,36 +27,34 @@ export class Layout extends Component{
     this.toggleSidebar = this.toggleSidebar.bind(this)
   }  
 
-  toggleSidebar(newState){
-    console.log(newState)
+  toggleSidebar(){
     this.setState({
-      isShowSidebar: newState
+      isShowSidebar: !this.state.isShowSidebar
     })
   }
 
   render(){
     const classes = this.props.classes
     const {isShowSidebar} = this.state
-    console.log('reload')
+    console.log(isShowSidebar)
     return(
       <Fragment>
-        <CssBaseline/>
-        <Header toggleSidebar={(newState)=>{
-          console.log(newState)
-          this.toggleSidebar(newState)
-        }} isShowedSidebar={isShowSidebar} />
+        <CssBaseline>
+        <Header toggleSidebar={this.toggleSidebar} />
         <div className={classes.toolbar}/>
-        <Collapse in={isShowSidebar} timeout="auto" unmountOnExit>
-          <Drawer
-            variant="permanent"
-            classes={{
-              paper: classes.drawerPaper,
-                    }}
+        <Drawer
+        variant={'persistent'}
+        classes={{
+          paper:classes.drawerPaper
+        }}
+          open={isShowSidebar}
+          anchor="left"
+          onClose={this.toggleSidebar}
           >
-            <Sidebar />
-          </Drawer>
-          </Collapse>
-
+            Bodyan the beast
+        </Drawer>
+        asfafasfasfasdf
+        </CssBaseline>
       </Fragment>
     )
   }
