@@ -11,8 +11,8 @@ namespace HRMS_Server.Data
     {
         public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
-            var adminEmail = "admin@gmail.com";
-            var password = "Admin";
+            const string adminEmail = "admin@gmail.com";
+            const string password = "Admin";
             if (await roleManager.FindByNameAsync("admin") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("admin"));

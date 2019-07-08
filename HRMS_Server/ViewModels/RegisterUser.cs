@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HRMS_Server.ViewModels
 {
-    public class RegisterUserModel
+    public class RegisterUser
     {
         [Required]
         [DataType(DataType.Text)]

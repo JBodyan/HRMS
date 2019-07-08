@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HRMS_Server.ViewModels
 {
-    public class LoginUserModel
+    public class LoginUser
     {
         [Required]
         public string UserName { get; set; }

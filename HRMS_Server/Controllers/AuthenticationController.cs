@@ -30,7 +30,7 @@ namespace HRMS_Server.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<object> RegisterUser(RegisterUserModel model)
+        public async Task<object> RegisterUser(RegisterUser model)
         {
             //if (!ModelState.IsValid) return BadRequest(model);
             var user = new User
@@ -52,7 +52,7 @@ namespace HRMS_Server.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login(LoginUserModel model)
+        public async Task<IActionResult> Login(LoginUser model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
