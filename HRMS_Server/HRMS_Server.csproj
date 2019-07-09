@@ -12,4 +12,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Uploads\CV\" />
+    <Folder Include="Uploads\Documents\" />
+    <Folder Include="Uploads\MembersPhoto\" />
+    <Folder Include="Uploads\UsersPhoto\" />
+  </ItemGroup>
+
 </Project>

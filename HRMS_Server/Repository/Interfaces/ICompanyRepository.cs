@@ -8,6 +8,8 @@ namespace HRMS_Server.Repository.Interfaces
 {
     interface ICompanyRepository
     {
+        Department GetDepartmentById(Guid id);
+        Position GetPositionById(Guid id);
         IEnumerable<Department> GetAllDepartments();
         IEnumerable<Position> GetAllPositions();
         Department AddDepartment(Department department);

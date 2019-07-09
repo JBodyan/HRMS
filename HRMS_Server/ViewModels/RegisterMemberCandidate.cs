@@ -20,7 +20,6 @@ namespace HRMS_Server.ViewModels
         public Gender Gender { get; set; }
         public DateTime BirthDate { get; set; }
 
-        public IFormFile CurriculumVitae { get; set; }
         public string About { get; set; }
         public string CareerObjective { get; set; }
 
