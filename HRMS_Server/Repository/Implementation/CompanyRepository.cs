@@ -16,6 +16,16 @@ namespace HRMS_Server.Repository.Implementation
             _context = context;
         }
 
+        public Department GetDepartmentById(Guid id)
+        {
+            return _context.Departments.FirstOrDefault(d => d.Id == id);
+        }
+
+        public Position GetPositionById(Guid id)
+        {
+            return _context.Positions.FirstOrDefault(p => p.Id == id);
+        }
+
         public IEnumerable<Department> GetAllDepartments()
         {
             return _context.Departments;
