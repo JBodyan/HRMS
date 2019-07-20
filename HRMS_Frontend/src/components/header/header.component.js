@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar'
-import TypoGraphy from '@material-ui/core/Typography'
-import Navbar from '../navbar/navbar.component.js'
+import { Navbar, Nav } from 'react-bootstrap';
 
 class Header extends Component {
-
-  constructor(){
-    super();
-  this.state = {
-    inputValue: '',
-    backgroundcolor: '#eeeeee'
-  }
-}
-
   render() {
-    const { backgroundcolor } = this.state
-
-    return ( 
-      <div>
-      <AppBar position = "static" >
-        <Toolbar>
-              <TypoGraphy>HRMS</TypoGraphy>
-              <Navbar/>
-              </Toolbar>
-       </AppBar>
-       </div>
+    return(
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Brand href="#home">HRMS</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+          <Nav.Link href="#features">Home</Nav.Link>
+          <Nav.Link href="#features">Recruitment</Nav.Link>
+          <Nav.Link href="#pricing">Employees</Nav.Link> 
+          <Nav.Link href="#pricing">Documents</Nav.Link>      
+          <Nav.Link href="#pricing">Calendar</Nav.Link>      
+          <Nav.Link href="#pricing">Payrole</Nav.Link>      
+          <Nav.Link href="#pricing">Logout</Nav.Link>      
+      </Nav>
+    </Navbar.Collapse>
+    </Navbar>
     );
   }
 }
-
 export default Header;
