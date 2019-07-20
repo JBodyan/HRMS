@@ -1,24 +1,33 @@
-import React from 'react'
-// @material-ui components
-import {
-  AppBar,
-  Toolbar,
-  IconButton, 
-} from "@material-ui/core"
-// @material-ui icons
-import {
-  Menu
-} from "@material-ui/icons"
+import React, { Component } from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar'
+import TypoGraphy from '@material-ui/core/Typography'
+import Navbar from '../navbar/navbar.component.js'
 
-export const Header = (props) => {
-  const {toggleSidebar} = props
-  return (
-    <AppBar>
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="Menu" onClick={toggleSidebar}>
-          <Menu/>
-        </IconButton>
-      </Toolbar>
-    </AppBar>
-  )
+class Header extends Component {
+
+  constructor(){
+    super();
+  this.state = {
+    inputValue: '',
+    backgroundcolor: '#eeeeee'
+  }
 }
+
+  render() {
+    const { backgroundcolor } = this.state
+
+    return ( 
+      <div>
+      <AppBar position = "static" >
+        <Toolbar>
+              <TypoGraphy>HRMS</TypoGraphy>
+              <Navbar/>
+              </Toolbar>
+       </AppBar>
+       </div>
+    );
+  }
+}
+
+export default Header;
