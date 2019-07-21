@@ -1,9 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {Layout} from './containers/layout/layout.container'
-import "babel-polyfill"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Lyaout from './containers/layout/layout.container.js';
+import "babel-polyfill";
+
+const routing = (
+    <Lyaout/> 
+);
 
 
-ReactDOM.render( <Layout /> , document.getElementById('root'))
+
+ReactDOM.render( routing , document.getElementById('root'))
 
 module.hot.accept();
