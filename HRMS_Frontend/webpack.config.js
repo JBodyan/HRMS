@@ -54,5 +54,10 @@ module.exports = {
         hot: true,        
         publicPath: '/',
         historyApiFallback: true
+    },
+    externals: {
+        config: JSON.stringify({
+            apiUrl: 'http://localhost:60357'
+        })
     }
 };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, Switch } from 'react-bootstrap';
+import { Navbar, Nav} from 'react-bootstrap';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Home }  from '../home/home.component.js';
 import { Recruitment } from '../recruitment/recruitment.component.js';
@@ -12,7 +12,7 @@ import { Login } from '../login/login.component.js';
 import { Register } from '../register/register.component.js';
 import { NotFound } from '../notfound/notfound.component.js';
 
-class Header extends Component {
+class HeaderUser extends Component {
   render() {
     return(
       <Router>
@@ -39,10 +39,9 @@ class Header extends Component {
       <Route path="/documents" component={Documents} />
       <Route path="/calendar" component={Calendar} />
       <Route path="/payrole" component={Payrole} />
-      <Route path="/logout" component={Logout} />
-      {/* <Route path="*" component={NotFound}/> */}
+      <Route path="/logout" component={Logout} /> 
   </Router>
     );
   }
 }
-export default Header;
+export default HeaderUser;
