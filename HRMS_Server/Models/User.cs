@@ -8,5 +8,7 @@ namespace HRMS_Server.Models
 {
     public class User : IdentityUser
     {
+        public string Photo { get; set; }
+
     }
 }

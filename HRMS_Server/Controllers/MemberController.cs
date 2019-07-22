@@ -55,7 +55,8 @@ namespace HRMS_Server.Controllers
             {
                 CareerObjective = candidate.CareerObjective,
                 ReceiptDate = DateTime.Now,
-                Member = member
+                About = candidate.About
+                
             };
 
             member.CandidateProfile = candidateProfile;
@@ -78,8 +79,7 @@ namespace HRMS_Server.Controllers
                 Department = employee.Department,
                 Position = employee.Position,
                 MaritalStatus = employee.MaritalStatus,
-                EmployeedDate = DateTime.Now,
-                Member = member
+                EmployeedDate = DateTime.Now
             };
 
             member.EmployeeProfile = employeeProfile;
