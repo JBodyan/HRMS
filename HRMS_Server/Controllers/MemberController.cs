@@ -54,7 +54,8 @@ namespace HRMS_Server.Controllers
             var candidateProfile = new CandidateProfile
             {
                 CareerObjective = candidate.CareerObjective,
-                ReceiptDate = DateTime.Now
+                ReceiptDate = DateTime.Now,
+                About = candidate.About
                 
             };
 
