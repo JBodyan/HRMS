@@ -13,7 +13,6 @@ namespace HRMS_Server.Models.MemberModel
         [Key]
         [ForeignKey("Member")]
         public Guid Id { get; set; }
-        public Member Member { get; set; }
         public string CurriculumVitae { get; set; }
         public string About { get; set; }
         public string CareerObjective { get; set; }

@@ -7,11 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using HRMS_Server.Models;
 using HRMS_Server.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace HRMS_Server.Controllers
 {
@@ -29,6 +31,7 @@ namespace HRMS_Server.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("Register")]
         public async Task<object> RegisterUser(RegisterUser model)
         {
@@ -57,13 +60,15 @@ namespace HRMS_Server.Controllers
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
+                var roles = await _userManager.GetRolesAsync(user);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                        new Claim("UserID", user.Id)
+                        new Claim("UserID", user.Id),
+                        new Claim(ClaimTypes.Role,roles[0])
                     }),
-                    Expires = DateTime.UtcNow.AddHours(1),
+                    Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(
                         new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["ApplicationSettings:JWT_Secret"])), 
                         SecurityAlgorithms.HmacSha256Signature)
@@ -71,7 +76,7 @@ namespace HRMS_Server.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                var roles = _userManager.GetRolesAsync(user);
+                
                 return Ok(new {token = token, roles = roles});
             }
             else
