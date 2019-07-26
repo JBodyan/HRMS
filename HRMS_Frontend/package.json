@@ -7,13 +7,12 @@
     "build": "webpack",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development "
   },
-  "author": "AnimeManna, JoskiiBodyan",
+  "author": "BogdanKandela, IrinaKulikova",
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.1.3",
     "@material-ui/icons": "^4.2.1",
     "bootstrap": "^4.3.1",
-    "formik": "^1.5.8",
     "history": "^4.9.0",
     "react": "^16.7.0",
     "react-bootstrap": "^1.0.0-beta.9",

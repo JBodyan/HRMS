@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layaout from './containers/layout/layout.container.js';
+import Header from './components/header/header.component.js';
 import "babel-polyfill";
 
-
-ReactDOM.render( <Layaout/> , document.getElementById('root'));
+ReactDOM.render( <Header/> , document.getElementById('root'));
 module.hot.accept();

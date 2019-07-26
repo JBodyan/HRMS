@@ -1,5 +1,8 @@
 const webpack = require('webpack');
 module.exports = {
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
     entry: [
         'react-hot-loader/patch',
         './src/index.js',
@@ -8,11 +11,9 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+                loader: "babel-loader"            
             }, {
                 test: /\.css$/,
                 use: [
@@ -34,8 +35,6 @@ module.exports = {
                     },
                 ],
             }
-
-
         ]
     },
     resolve: {

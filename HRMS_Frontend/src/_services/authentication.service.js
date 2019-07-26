@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import config from 'config';
 import { handleResponse } from '../_helpers/handleResponse.js';
 
-const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
+const currentUserSubject = new BehaviorSubject(localStorage.getItem('currentUser'));
 
 export const authenticationService = {
     login,
@@ -33,5 +33,6 @@ function login(username, password) {
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('role');
     currentUserSubject.next(null);
 }
