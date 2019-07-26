@@ -5,4 +5,4 @@ import "babel-polyfill";
 
 
 ReactDOM.render( <Layaout/> , document.getElementById('root'));
-//module.hot.accept();
+module.hot.accept();

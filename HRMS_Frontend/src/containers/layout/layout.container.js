@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import HeaderUser from "../../components/headerUser/headerUser.component";
+import { HeaderUser } from "../../components/headerUser/headerUser.component";
 import { authenticationService } from '../../_services/authentication.service';
 import { Role } from '../../_helpers/role.js';
-import { Login } from '../../components/login/login.component';
+import  { Login } from '../../components/login/login.component';
 
 export class Layout extends Component{
 
@@ -28,9 +28,7 @@ logout() {
 }
 
   render(){
-    // const { currentUser, isAdmin } = this.state;
-    return (
-      // <div>Layout render</div>
+    return (      
       <Login/>
     );
   }
