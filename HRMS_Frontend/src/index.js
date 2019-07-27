@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from './containers/layout/layout.container.js';
 import "babel-polyfill";
+import Header from "./components/header/header.component";
 
 const routing = (
-    <Layout/>
+    <Header/>
 );
 
 
