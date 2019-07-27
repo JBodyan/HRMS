@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using HRMS_Server.Models;
 using HRMS_Server.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ namespace HRMS_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowMyOrigin")]
     public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<User> _userManager;

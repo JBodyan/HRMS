@@ -7,7 +7,7 @@
     "build": "webpack",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development "
   },
-  "author": "AnimeManna, JoskiiBodyan",
+  "author": "BogdanKandela, IrinaKulikova",
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.2.1",
@@ -18,9 +18,11 @@
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.7.0",
     "react-router": "^5.0.1",
-    "react-router-dom": "^5.0.1",
+    "react-router-dom": "^4.4.0-beta.8",
+    "rxjs": "^6.5.2",
     "webpack": "^4.28.4",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
