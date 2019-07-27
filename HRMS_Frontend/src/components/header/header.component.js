@@ -37,8 +37,7 @@ logout() {
 }
 
 render() {
-    const { currentUser, isAdmin } = this.state;
-    return(
+       return(
       <Router history={history}>
         <div>          
           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
