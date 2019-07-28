@@ -1,6 +1,15 @@
 import React,{Component} from 'react';
-import { authenticationService } from '../../_services/authentication.service.js';
+import { authenticationService } from '../../../_services/authentication.service.js';
+import { history } from '../../../_helpers/history.js';
 
+
+const formStyle =
+    {
+        minWidth: "300px",
+        maxWidth: "400px",
+        margin: "auto",
+        marginTop: "80px"
+    };
 export class Login extends Component {
     constructor(props) {
       super(props);  
@@ -10,7 +19,7 @@ export class Login extends Component {
       };
 
       if (authenticationService.currentUserValue) { 
-        this.props.history.push('/');
+        history.push('/');
       }
       
     this.handleChange = this.handleChange.bind(this);
@@ -26,16 +35,12 @@ export class Login extends Component {
     handleSubmit = event => {
       event.preventDefault();
       authenticationService.login(this.state.username,this.state.password)
-      .then(
-        user => {
-            const { from } = this.props.location.state || { from: { pathname: "/" } };
-            this.props.history.push(from);
-        }); 
+                           .then(()=>{ history.push("/");}); 
     }
   
     render() {
-      return (
-        <div>
+      return (        
+      <div style={formStyle}>
     <form onSubmit={this.handleSubmit}>
         <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -48,8 +53,8 @@ export class Login extends Component {
         <div className="form-group">
           <button type="submit" className="btn btn-primary">Login</button>
         </div>
-    </form>      
-    </div>                        
+    </form>   
+    </div>
       );
     }
   }

@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "babel-polyfill";
-import Header from "./components/header/header.component";
+import { App }  from "./containers/app/app.component.js";
 
 const routing = (
-    <Header/>
+    <App/>
 );
 
-
-
 ReactDOM.render( routing , document.getElementById('root'))
-
 module.hot.accept();
