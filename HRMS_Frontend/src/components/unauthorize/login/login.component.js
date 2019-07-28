@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import { authenticationService } from '../../../_services/authentication.service.js';
+import { history } from '../../../_helpers/history.js';
+
 
 const formStyle =
     {
@@ -17,7 +19,7 @@ export class Login extends Component {
       };
 
       if (authenticationService.currentUserValue) { 
-        this.props.history.push('/');
+        history.push('/');
       }
       
     this.handleChange = this.handleChange.bind(this);
@@ -33,16 +35,11 @@ export class Login extends Component {
     handleSubmit = event => {
       event.preventDefault();
       authenticationService.login(this.state.username,this.state.password)
-      .then(
-        user => {
-            const { from } = this.props.location.state || { from: { pathname: "/" } };
-            this.props.history.push(from);
-        }); 
+                           .then(()=>{ history.push("/");}); 
     }
   
     render() {
-      return (
-        
+      return (        
       <div style={formStyle}>
     <form onSubmit={this.handleSubmit}>
         <div className="form-group">

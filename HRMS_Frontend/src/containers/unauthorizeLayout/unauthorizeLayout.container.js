@@ -3,7 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { Login } from '../../components/unauthorize/login/login.component.js';
 import { Register } from '../../components/unauthorize/register/register.component.js';
 import { About } from '../../components/unauthorize/about/about.component.js';
-import { Route,Switch,Redirect, BrowserRouter as Router  } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router  } from 'react-router-dom';
 import { history } from '../../_helpers/history.js';
 
 export class UnauthorizeLayout extends Component{
@@ -19,14 +19,13 @@ export class UnauthorizeLayout extends Component{
           <Nav className="mr-auto">
           <Nav.Link href="/login">Login</Nav.Link> 
           <Nav.Link href="/register">Register</Nav.Link> 
-          <Nav.Link href="/about">About</Nav.Link> 
           </Nav>       
           </Navbar.Collapse>
          </Navbar>
          <Switch>
-         <Route path="/login" exact component={Login}/>
-         <Route  path="/register" component={Register}/> 
-         <Route  path="/about" component={About}/> 
+         <Route path="/" exact component={About}/>
+         <Route path="/login" component={Login}/>
+         <Route path="/register" component={Register}/> 
          </Switch>
          </div>
         </Router>        
