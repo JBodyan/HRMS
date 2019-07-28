@@ -78,8 +78,7 @@ namespace HRMS_Server.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                
-                return Ok(new {token = token, roles = roles});
+               return Ok(new {token = token, username=user.UserName, role = roles[0]});
             }
             else
             {

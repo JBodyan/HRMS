@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { authenticationService } from '../../_services/authentication.service.js';
+import { authenticationService } from '../../../_services/authentication.service.js';
 
 const formStyle =
     {

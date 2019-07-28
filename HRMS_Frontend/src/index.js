@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "babel-polyfill";
-import { DefaultLayout }  from "./containers/defaultLayout/defaultLayout.component.js";
+import { App }  from "./containers/app/app.component.js";
 
 const routing = (
-    <DefaultLayout/>
+    <App/>
 );
 
 ReactDOM.render( routing , document.getElementById('root'))

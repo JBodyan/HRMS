@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { authenticationService } from '../../_services/authentication.service.js';
+import { authenticationService } from '../../../_services/authentication.service.js';
 
 const formStyle =
     {
@@ -61,7 +61,7 @@ export class Register extends Component{
             <input name="password" type="password" className={'form-control'} required  onChange={this.handleChange}/>
         </div>
         <div className="form-group">
-            <label htmlFor="password">Conform password</label>
+            <label htmlFor="password">Confirm password</label>
             <input name="password" type="password" className={'form-control'} required  onChange={this.handleChange}/>
         </div>
         <div className="form-group">

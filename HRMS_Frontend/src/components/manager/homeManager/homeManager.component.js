@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-export class Home extends Component {
+export class HomeManager extends Component {
  
     render() {
         return (
             <div>
-                <h1>Home</h1>
+                <h5>Home Manager</h5>
             </div>
         );
     }
 }
 
-export default Home;
+export default HomeManager;
