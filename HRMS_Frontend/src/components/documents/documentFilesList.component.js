@@ -18,6 +18,7 @@ const ContentStyle =
         flexDirection: "row",
         flexWrap: "wrap"
     };
+
 export class DocumentFileList extends Component{
 
     render(){

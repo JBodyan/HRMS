@@ -59,10 +59,10 @@ render() {
     </Navbar>
       <Route  path="/login" component={Login}/>
       <Route  path="/register" component={Register}/>
-      <PrivateRoute  path="/home" roles={[Role.Admin]} component={Home} />
-      <PrivateRoute  path="/recruitment" roles={[Role.Admin]} component={Recruitment} />
-      <PrivateRoute  path="/employees" roles={[Role.Admin]} component={Employees} />
-       <PrivateRoute path="/documents" component={Documents} />
+      <PrivateRoute path="/home" roles={[Role.Admin]} component={Home} />
+      <PrivateRoute path="/recruitment" roles={[Role.Admin]} component={Recruitment} />
+      <PrivateRoute path="/employees" roles={[Role.Admin]} component={Employees} />
+      <PrivateRoute path="/documents" component={Documents} />
       <PrivateRoute path="/calendar" component={Calendar} />
       <PrivateRoute path="/payrole" component={Payrole} />
     </div>

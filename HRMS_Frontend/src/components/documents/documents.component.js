@@ -13,6 +13,7 @@ const FileContainerStyle =
         display: "flex",
         justifyContent: "center"
     };
+
 export class Documents extends Component{
   render(){
       return  (
