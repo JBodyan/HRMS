@@ -29,6 +29,7 @@ export class Companies extends Component{
     componentDidMount() {
         this.loadDepartments();
         this.loadPositions();
+        console.log(this.state);
     }
 
     loadDepartments(){
@@ -81,31 +82,11 @@ export class Companies extends Component{
             <div>
                 <h5>Companies</h5>
                 <div className="container">
-                    <div className="company-toolbox">
-                        <div className="form-group">
-                            <TextField
-                                id="department-name"
-                                label="Department name"
-                                value={this.state.newDepartmentName}
-                                onChange={this.handleDepartmentName(value)}
-                            />
-                            <Button onClick={this.addDepartment()}>Add department</Button>
-                        </div>
-                        <div className="form-group">
-                            <TextField
-                                id="position-name"
-                                label="Position name"
-                                value={this.state.newPositionName}
-                                onChange={this.handlePositionName(value)}
-                            />
-                            <Button onClick={this.addPosition()}>Add position</Button>
-                        </div>
-                    </div>
                     <ElementContainer content={departments}/>
                     <ElementContainer content={positions}/>
                 </div>
             </div>
-            )
+            );
         }
     }
 }

@@ -20,7 +20,7 @@ logout() {
 }
 
 render() {
-   history.push('/');
+   //history.push('/');
        return(
       <Router history={history}>
         <div>          
