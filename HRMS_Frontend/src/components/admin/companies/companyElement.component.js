@@ -5,10 +5,15 @@ import Button from "@material-ui/core/Button";
 import config from 'config';
 import CardContent from "@material-ui/core/CardContent";
 import 'babel-polyfill'
+import {ElementType} from "./elementType";
 
 export class CompanyElement extends Component{
     constructor(props){
         super(props);
+        console.log(props.content)
+        this.state = {
+            title: props.type === ElementType.Department ? "Department name" : "Position name"
+        }
     }
 
     saveChanges(){
@@ -16,20 +21,33 @@ export class CompanyElement extends Component{
     }
 
     remove(){
-        fetch(`${config.apiUrl}/api/Company/RemovePositions`)
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoadedPositions: true,
-                        positions: result.items
-                    })
-                },
-                (error) => {
-                    this.setState({
-                        error
-                    })
-                }
-            )
+        // if(this.props.type === ElementType.Department) {
+        //     fetch(`${config.apiUrl}/api/Company/RemoveDepartment/${this.props.id}`)
+        //         .then(
+        //
+        //             },
+        //             (error) => {
+        //                 this.setState({
+        //                     error
+        //                 })
+        //             }
+        //         )
+        // }else if(this.props.type === ElementType.Position){
+        //     fetch(`${config.apiUrl}/api/Company/RemovePosition/${this.props.id}`)
+        //         .then(
+        //             (result) => {
+        //                 this.setState({
+        //                     isLoadedPositions: true,
+        //                     positions: result.items
+        //                 })
+        //             },
+        //             (error) => {
+        //                 this.setState({
+        //                     error
+        //                 })
+        //             }
+        //         )
+        // }
     }
 
     render(){
@@ -39,7 +57,7 @@ export class CompanyElement extends Component{
                     <CardContent>
                         <TextField
                             id="element-name"
-                            label={this.props.label}
+                            label={this.state.label}
                             value={this.props.name}
                         />
                         <Button onClick={this.saveChanges()}>Save changes</Button>

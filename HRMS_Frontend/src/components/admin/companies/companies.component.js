@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import config from 'config';
 import ElementContainer from "./elementContainer.component";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import {ElementType} from "./elementType";
 
 export class Companies extends Component{
 
@@ -29,18 +28,18 @@ export class Companies extends Component{
     componentDidMount() {
         this.loadDepartments();
         this.loadPositions();
-        console.log(this.state);
     }
 
     loadDepartments(){
         fetch(`${config.apiUrl}/api/Company/GetDepartments`)
-            .then(
-                (result) => {
-                    this.setState({
+            .then( result => result.json().then((result)=>{
+                //console.log(result);
+                this.setState({
                         isLoadedDepartments: true,
-                        departments: result.items
-                    })
-                },
+                        departments: result
+                    });
+                //console.log(this.state);
+                }),
                 (error) => {
                     this.setState({
                         error
@@ -50,13 +49,14 @@ export class Companies extends Component{
     }
     loadPositions(){
         fetch(`${config.apiUrl}/api/Company/GetPositions`)
-            .then(
-                (result) => {
+            .then( result => result.json().then((result)=>{
+                    //console.log(result);
                     this.setState({
                         isLoadedPositions: true,
-                        positions: result.items
-                    })
-                },
+                        positions: result
+                    });
+                    //console.log(this.state);
+                }),
                 (error) => {
                     this.setState({
                         error
@@ -82,8 +82,8 @@ export class Companies extends Component{
             <div>
                 <h5>Companies</h5>
                 <div className="container">
-                    <ElementContainer content={departments}/>
-                    <ElementContainer content={positions}/>
+                    <ElementContainer type={ElementType.Department} content={departments}/>
+                    <ElementContainer type={ElementType.Position} content={positions}/>
                 </div>
             </div>
             );
