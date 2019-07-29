@@ -1,8 +1,112 @@
 import React, {Component} from 'react';
+import config from 'config';
+import ElementContainer from "./elementContainer.component";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export class Companies extends Component{
-  render(){
-      return  (<div><h5>Companies</h5></div>);
-  }
+
+    constructor(props){
+        super(props);
+        this.state = {
+            error: null,
+            isLoadedDepartments: false,
+            isLoadedPositions: false,
+            departments: [],
+            positions: [],
+            newDepartmentName: "",
+            newPositionName: ""
+        }
+    }
+
+    handleDepartmentName(name){
+        this.setState({newDepartmentName: name});
+    }
+    handlePositionName(name){
+        this.setState({newPositionName: name});
+    }
+
+    componentDidMount() {
+        this.loadDepartments();
+        this.loadPositions();
+    }
+
+    loadDepartments(){
+        fetch(`${config.apiUrl}/api/Company/GetDepartments`)
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoadedDepartments: true,
+                        departments: result.items
+                    })
+                },
+                (error) => {
+                    this.setState({
+                        error
+                    })
+                }
+            )
+    }
+    loadPositions(){
+        fetch(`${config.apiUrl}/api/Company/GetPositions`)
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoadedPositions: true,
+                        positions: result.items
+                    })
+                },
+                (error) => {
+                    this.setState({
+                        error
+                    })
+                }
+            )
+    }
+    addDepartment(){
+
+    };
+    addPosition(){
+
+    };
+
+    render(){
+        const { error, isLoadedDepartments, isLoadedPositions, positions, departments } = this.state;
+        if (error) {
+            return <div>Ошибка: {error.message}</div>;
+        } else if (!isLoadedDepartments || !isLoadedPositions) {
+            return <div>Загрузка...</div>;
+        } else {
+            return  (
+            <div>
+                <h5>Companies</h5>
+                <div className="container">
+                    <div className="company-toolbox">
+                        <div className="form-group">
+                            <TextField
+                                id="department-name"
+                                label="Department name"
+                                value={this.state.newDepartmentName}
+                                onChange={this.handleDepartmentName(value)}
+                            />
+                            <Button onClick={this.addDepartment()}>Add department</Button>
+                        </div>
+                        <div className="form-group">
+                            <TextField
+                                id="position-name"
+                                label="Position name"
+                                value={this.state.newPositionName}
+                                onChange={this.handlePositionName(value)}
+                            />
+                            <Button onClick={this.addPosition()}>Add position</Button>
+                        </div>
+                    </div>
+                    <ElementContainer content={departments}/>
+                    <ElementContainer content={positions}/>
+                </div>
+            </div>
+            )
+        }
+    }
 }
 export default Companies;

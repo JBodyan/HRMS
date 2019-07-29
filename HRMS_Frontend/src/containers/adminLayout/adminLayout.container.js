@@ -17,7 +17,7 @@ logout() {
 }
 
 render() {
-  history.push('/');
+   history.push('/');
        return(
       <Router history={history}>
         <div>          
@@ -33,7 +33,7 @@ render() {
       </Nav> 
     </Navbar.Collapse>
     </Navbar>
-      <PrivateRoute exact  path="/" component={HomeAdmin} />   
+      <PrivateRoute exact path="/" component={HomeAdmin} />
       <PrivateRoute path="/users" roles={[Role.Admin]} component={Users} />   
       <PrivateRoute path="/companies" roles={[Role.Admin]} component={Companies} />
     </div>
