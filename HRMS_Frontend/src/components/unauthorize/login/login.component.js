@@ -35,7 +35,8 @@ export class Login extends Component {
     handleSubmit = event => {
       event.preventDefault();
       authenticationService.login(this.state.username,this.state.password)
-                           .then(()=>{ history.push("/");}); 
+                           .then(()=>{ }); 
+      history.push('/');
     }
   
     render() {
