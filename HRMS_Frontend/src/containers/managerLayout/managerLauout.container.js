@@ -20,7 +20,6 @@ logout() {
 }
 
 render() {
-   history.push('/');
        return(
       <Router history={history}>
         <div>          
@@ -40,11 +39,11 @@ render() {
     </Navbar.Collapse>
     </Navbar>
       <PrivateRoute exact path="/" component={HomeManager} />
-      <PrivateRoute path="/recruitment" roles={[Role.User]}  component={Recruitment} />
-      <PrivateRoute path="/employees" roles={[Role.User]} component={Employees} />
-      <PrivateRoute path="/documents" roles={[Role.User]} component={Documents} />
-      <PrivateRoute path="/calendar" roles={[Role.User]} component={Calendar} />
-      <PrivateRoute path="/payrole" roles={[Role.User]} component={Payrole} />
+      <PrivateRoute path="/recruitment" roles={[Role.Manager]}  component={Recruitment} />
+      <PrivateRoute path="/employees" roles={[Role.Manager]} component={Employees} />
+      <PrivateRoute path="/documents" roles={[Role.Manager]} component={Documents} />
+      <PrivateRoute path="/calendar" roles={[Role.Manager]} component={Calendar} />
+      <PrivateRoute path="/payrole" roles={[Role.Manager]} component={Payrole} />
     </div>
 </Router>
     );

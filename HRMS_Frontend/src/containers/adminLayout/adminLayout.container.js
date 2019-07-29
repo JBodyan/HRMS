@@ -17,7 +17,6 @@ logout() {
 }
 
 render() {
-  history.push('/');
        return(
       <Router history={history}>
         <div>          
