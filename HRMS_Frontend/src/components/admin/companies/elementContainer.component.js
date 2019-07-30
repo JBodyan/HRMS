@@ -1,36 +1,25 @@
-import {Component} from "react";
 import React from "react";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
-import CompanyElement from "./companyElement.component";
-import Typography from "@material-ui/core/Typography";
+import {CompanyElement} from "./companyElement.component";
+import {ElementType} from "./elementType";
 
 
-
-export class ElementContainer extends Component{
-    constructor(props){
-        super(props);
-    }
-
-
-
-    render(){
+export const ElementContainer = (props) =>{
         return  (
             <div>
                 <Card>
-                    <legend>
-                        {this.props.type}
-                    </legend>
                     <CardContent>
-                        {this.props.content.map((element,idx)=>(
+                        <legend>
+                            {props.type === ElementType.Department? "Departments" : "Positions"}
+                        </legend>
+                        {props.content.map((element,idx)=>(
                             <div key={idx}>
-                                <CompanyElement id={element.id} name={element.name} type={this.props.type}/>
+                                <CompanyElement remove={props.remove} id={element.id} name={element.name} type={props.type}/>
                             </div>
                         ))}
                     </CardContent>
                 </Card>
             </div>
         );
-    }
-}
-export default ElementContainer;
+};

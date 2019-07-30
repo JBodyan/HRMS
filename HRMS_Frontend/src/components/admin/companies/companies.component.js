@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import config from 'config';
-import ElementContainer from "./elementContainer.component";
+import {ElementContainer} from "./elementContainer.component";
 import {ElementType} from "./elementType";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import {authHeader} from "../../../_helpers/authHeader"
+import {CompanyToolbox} from "./companyToolbox.component";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+const ContainerStyle = {
+    display: 'flex',
+    justifyContent: 'center'
+};
 
 export class Companies extends Component{
 
@@ -23,6 +26,8 @@ export class Companies extends Component{
         };
         this.handleAddDepartment = this.handleAddDepartment.bind(this);
         this.handleAddPosition = this.handleAddPosition.bind(this);
+
+
     }
 
     handleChange = event => {
@@ -71,7 +76,7 @@ export class Companies extends Component{
             )
     }
 
-    handleAddDepartment(){
+    handleAddDepartment = event =>{
         let auth = authHeader();
         fetch(`${config.apiUrl}/api/Company/AddDepartment`,{
             method: 'post',
@@ -91,13 +96,11 @@ export class Companies extends Component{
                     this.loadDepartments();
                 }),
                 (error) => {
-                    this.setState({
-                        error
-                    })
+                    alert(error);
                 }
             )
     };
-    handleAddPosition(){
+    handleAddPosition = event =>{
         let auth = authHeader();
         fetch(`${config.apiUrl}/api/Company/AddPosition`,{
             method: 'post',
@@ -117,9 +120,48 @@ export class Companies extends Component{
                     this.loadPositions();
                 }),
                 (error) => {
-                    this.setState({
-                        error
-                    })
+                    alert(error);
+                }
+            )
+    };
+
+    handleRemoveDepartment = id =>{
+        let auth = authHeader();
+        fetch(`${config.apiUrl}/api/Company/DeleteDepartment/${id}`,{
+            method: 'delete',
+            headers:
+                {
+                    'Content-Type': 'application/json',
+                    auth
+                }
+        })
+            .then( result => result.json().then((result)=>{
+                    console.log(event);
+                    alert(result.message);
+                    this.loadDepartments();
+                }),
+                (error) => {
+                    alert(error);
+                }
+            )
+    };
+    handleRemovePosition = id =>{
+        let auth = authHeader();
+        fetch(`${config.apiUrl}/api/Company/DeletePosition/${id}`,{
+            method: 'delete',
+            headers:
+                {
+                    'Content-Type': 'application/json',
+                    auth
+                }
+        })
+            .then( result => result.json().then((result)=>{
+                    console.log(result);
+                    alert(result.message);
+                    this.loadPositions();
+                }),
+                (error) => {
+                    alert(error);
                 }
             )
     };
@@ -129,45 +171,18 @@ export class Companies extends Component{
         if (error) {
             return <div>Ошибка: {error.message}</div>;
         } else if (!isLoadedDepartments || !isLoadedPositions) {
-            return <div>Загрузка...</div>;
+            return <div><CircularProgress/></div>;
         } else {
             return  (
             <div>
                 <h5>Companies</h5>
-                <div className="container">
-                    <Card>
-                        <legend>
-                            Toolbox
-                        </legend>
-                        <CardContent>
-                            <div className="form-group">
-                                <TextField
-                                   title="Department name"
-                                   placeholder="Department name"
-                                   name="departmentName"
-                                   value={this.state.departmentName}
-                                   onChange={this.handleChange.bind(this)}
-                                />
-                                <Button onClick={this.handleAddDepartment}>Add department</Button>
-                            </div>
-                            <div className="form-group">
-                                <TextField
-                                    title="Position name"
-                                    placeholder="Position name"
-                                    name="positionName"
-                                    value={this.state.positionName}
-                                    onChange={this.handleChange.bind(this)}
-                                />
-                                <Button onClick={this.handleAddPosition}>Add position</Button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                    <ElementContainer type={ElementType.Department} content={departments}/>
-                    <ElementContainer type={ElementType.Position} content={positions}/>
+                <div className="container" style={ContainerStyle}>
+                    <CompanyToolbox handleChange={this.handleChange} handleAddDepartment={this.handleAddDepartment} handleAddPosition={this.handleAddPosition}/>
+                    <ElementContainer remove={this.handleRemoveDepartment} type={ElementType.Department} content={departments}/>
+                    <ElementContainer remove={this.handleRemovePosition} type={ElementType.Position} content={positions}/>
                 </div>
             </div>
             );
         }
     }
 }
-export default Companies;
