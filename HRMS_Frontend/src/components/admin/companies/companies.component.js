@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import config from 'config';
 import ElementContainer from "./elementContainer.component";
 import {ElementType} from "./elementType";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import {authHeader} from "../../../_helpers/authHeader"
 
 export class Companies extends Component{
 
@@ -13,17 +18,18 @@ export class Companies extends Component{
             isLoadedPositions: false,
             departments: [],
             positions: [],
-            newDepartmentName: "",
-            newPositionName: ""
-        }
+            departmentName: "",
+            positionName: ""
+        };
+        this.handleAddDepartment = this.handleAddDepartment.bind(this);
+        this.handleAddPosition = this.handleAddPosition.bind(this);
     }
 
-    handleDepartmentName(name){
-        this.setState({newDepartmentName: name});
-    }
-    handlePositionName(name){
-        this.setState({newPositionName: name});
-    }
+    handleChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
 
     componentDidMount() {
         this.loadDepartments();
@@ -64,11 +70,58 @@ export class Companies extends Component{
                 }
             )
     }
-    addDepartment(){
 
+    handleAddDepartment(){
+        let auth = authHeader();
+        fetch(`${config.apiUrl}/api/Company/AddDepartment`,{
+            method: 'post',
+            headers:
+                {
+                'Content-Type': 'application/json',
+                auth
+                },
+            body: JSON.stringify({Name: this.state.departmentName})
+        })
+            .then( result => result.json().then((result)=>{
+                    console.log(result);
+                    alert(result.message);
+                    this.setState({
+                        departmentName: ""
+                    });
+                    this.loadDepartments();
+                }),
+                (error) => {
+                    this.setState({
+                        error
+                    })
+                }
+            )
     };
-    addPosition(){
-
+    handleAddPosition(){
+        let auth = authHeader();
+        fetch(`${config.apiUrl}/api/Company/AddPosition`,{
+            method: 'post',
+            headers:
+                {
+                    'Content-Type': 'application/json',
+                    auth
+                },
+            body: JSON.stringify({Name: this.state.positionName})
+        })
+            .then( result => result.json().then((result)=>{
+                    console.log(result);
+                    alert(result.message);
+                    this.setState({
+                        positionName: ""
+                    });
+                    this.loadPositions();
+                }),
+                (error) => {
+                    this.setState({
+                        error
+                    })
+                }
+            )
     };
 
     render(){
@@ -82,6 +135,33 @@ export class Companies extends Component{
             <div>
                 <h5>Companies</h5>
                 <div className="container">
+                    <Card>
+                        <legend>
+                            Toolbox
+                        </legend>
+                        <CardContent>
+                            <div className="form-group">
+                                <TextField
+                                   title="Department name"
+                                   placeholder="Department name"
+                                   name="departmentName"
+                                   value={this.state.departmentName}
+                                   onChange={this.handleChange.bind(this)}
+                                />
+                                <Button onClick={this.handleAddDepartment}>Add department</Button>
+                            </div>
+                            <div className="form-group">
+                                <TextField
+                                    title="Position name"
+                                    placeholder="Position name"
+                                    name="positionName"
+                                    value={this.state.positionName}
+                                    onChange={this.handleChange.bind(this)}
+                                />
+                                <Button onClick={this.handleAddPosition}>Add position</Button>
+                            </div>
+                        </CardContent>
+                    </Card>
                     <ElementContainer type={ElementType.Department} content={departments}/>
                     <ElementContainer type={ElementType.Position} content={positions}/>
                 </div>

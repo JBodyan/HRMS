@@ -10,7 +10,7 @@ import {ElementType} from "./elementType";
 export class CompanyElement extends Component{
     constructor(props){
         super(props);
-        console.log(props.content)
+        //console.log(props.content)
         this.state = {
             title: props.type === ElementType.Department ? "Department name" : "Position name"
         }
