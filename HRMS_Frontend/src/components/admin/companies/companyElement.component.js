@@ -1,7 +1,6 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
-import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
@@ -32,14 +31,24 @@ export const CompanyElement = (props) =>{
                     <CardContent>
                         <TextField
                             id="element-name"
+                            name='element-name'
                             label={props.label}
                             value={props.name}
+                            inputProps={{
+                                readOnly: false
+                            }}
+                            onChange={props.handleChange.bind(this)}
+                            onDoubleClick={()=>{
+                                this.inputProps.readOnly = false;
+                            }}
+                            onBlur={()=>{
+                                this.inputProps.readOnly = true;
+                            }}
                         />
                     </CardContent>
                     <CardActions>
                         <Fab style={SaveChangesButtonStyle}>
-                            <SaveIcon style={IconStyle}>
-                            </SaveIcon>
+                            <SaveIcon style={IconStyle}/>
                         </Fab>
                         <Fab onClick={() =>{props.remove(props.id)}} style={RemoveButtonStyle}>
                             <DeleteIcon style={IconStyle}/>

@@ -76,14 +76,14 @@ export class Companies extends Component{
             )
     }
 
-    handleAddDepartment = event =>{
+    handleAddDepartment = () =>{
         let auth = authHeader();
         fetch(`${config.apiUrl}/api/Company/AddDepartment`,{
             method: 'post',
             headers:
                 {
                 'Content-Type': 'application/json',
-                auth
+                'Authorization': auth.Authorization
                 },
             body: JSON.stringify({Name: this.state.departmentName})
         })
@@ -100,14 +100,14 @@ export class Companies extends Component{
                 }
             )
     };
-    handleAddPosition = event =>{
+    handleAddPosition = () =>{
         let auth = authHeader();
         fetch(`${config.apiUrl}/api/Company/AddPosition`,{
             method: 'post',
             headers:
                 {
                     'Content-Type': 'application/json',
-                    auth
+                    'Authorization': auth.Authorization
                 },
             body: JSON.stringify({Name: this.state.positionName})
         })
@@ -171,15 +171,15 @@ export class Companies extends Component{
         if (error) {
             return <div>Ошибка: {error.message}</div>;
         } else if (!isLoadedDepartments || !isLoadedPositions) {
-            return <div><CircularProgress/></div>;
+            return <div className="container" style={ContainerStyle}><CircularProgress/></div>;
         } else {
             return  (
             <div>
                 <h5>Companies</h5>
                 <div className="container" style={ContainerStyle}>
                     <CompanyToolbox handleChange={this.handleChange} handleAddDepartment={this.handleAddDepartment} handleAddPosition={this.handleAddPosition}/>
-                    <ElementContainer remove={this.handleRemoveDepartment} type={ElementType.Department} content={departments}/>
-                    <ElementContainer remove={this.handleRemovePosition} type={ElementType.Position} content={positions}/>
+                    <ElementContainer handleChange={this.handleChange} remove={this.handleRemoveDepartment} type={ElementType.Department} content={departments}/>
+                    <ElementContainer handleChange={this.handleChange} remove={this.handleRemovePosition} type={ElementType.Position} content={positions}/>
                 </div>
             </div>
             );

@@ -15,7 +15,7 @@ export const ElementContainer = (props) =>{
                         </legend>
                         {props.content.map((element,idx)=>(
                             <div key={idx}>
-                                <CompanyElement remove={props.remove} id={element.id} name={element.name} type={props.type}/>
+                                <CompanyElement handleChange={props.handleChange} remove={props.remove} id={element.id} name={element.name} type={props.type}/>
                             </div>
                         ))}
                     </CardContent>
