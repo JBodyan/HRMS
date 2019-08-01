@@ -4,6 +4,8 @@ import {authHeader} from "../../../_helpers/authHeader"
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {UsersFilter} from "./usersFilter.component";
 import {UsersTable} from "./usersTable";
+import Link from "@material-ui/core/Link";
+import NavLink from "react-bootstrap/NavLink";
 
 const ContainerStyle = {
     display: 'flex',
@@ -107,6 +109,7 @@ export class Users extends Component{
                 <div>
                     <h5>Users</h5>
                     <div className="container" style={ContainerStyle}>
+                        <NavLink>Add new Manager</NavLink>
                         <UsersFilter handleChange={this.handleChange} positions={positions} department={departments}/>
                         <UsersTable users={users}/>
                     </div>

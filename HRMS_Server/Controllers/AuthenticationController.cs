@@ -63,12 +63,13 @@ namespace HRMS_Server.Controllers
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var roles = await _userManager.GetRolesAsync(user);
+                IdentityOptions _identityOptions = new IdentityOptions();
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
                         new Claim("UserID", user.Id),
-                        new Claim(ClaimTypes.Role,roles[0])
+                        new Claim(_identityOptions.ClaimsIdentity.RoleClaimType,roles[0])
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(
