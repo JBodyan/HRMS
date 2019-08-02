@@ -8,6 +8,8 @@ import { PrivateRoute } from '../../_helpers/privateRoute.jsx';
 import { Users} from '../../components/admin/users/users.component.js';
 import { Companies } from '../../components/admin/companies/companies.component.js';
 import { Role } from '../../_helpers/role';
+import {UserProfile} from "../../components/admin/users/userProfile/userProfile.component";
+import {UserAdd} from "../../components/admin/users/userAdd/userAdd.component";
 
 export class AdminLayout extends Component {
 
@@ -35,6 +37,8 @@ render() {
       <PrivateRoute exact  path="/" component={HomeAdmin} />   
       <PrivateRoute path="/users" roles={[Role.Admin]} component={Users} />   
       <PrivateRoute path="/companies" roles={[Role.Admin]} component={Companies} />
+      <PrivateRoute path="/userProfile/{id}" roles={[Role.Admin]} component={UserProfile}/>
+      <PrivateRoute path="/addUser" roles={[Role.Admin]} component={UserAdd}/>
     </div>
 </Router>
     );

@@ -33,7 +33,7 @@ export const UsersTable = (props) =>{
                                     </TableCell>
                                     <TableCell align="left">{user.userName}</TableCell>
                                     <TableCell align="left">{user.email}</TableCell>
-                                    <TableCell align="left"><Button>Info</Button></TableCell>
+                                    <TableCell align="left"><Button href={"/userProfile/"+user.id}>Info</Button></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

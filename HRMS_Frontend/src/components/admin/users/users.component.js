@@ -19,12 +19,8 @@ export class Users extends Component{
         super(props);
         this.state = {
             error: null,
-            isLoadedDepartments: false,
-            isLoadedPositions: false,
             isLoadedUsers: false,
-            users: [],
-            departments: [],
-            positions: []
+            users: []
         };
     }
 
@@ -35,8 +31,6 @@ export class Users extends Component{
     };
 
     componentDidMount() {
-        this.loadDepartments();
-        this.loadPositions();
         this.loadUsers();
     }
 
@@ -63,54 +57,20 @@ export class Users extends Component{
                 }
             )
     };
-    loadDepartments(){
-        fetch(`${config.apiUrl}/api/Company/GetDepartments`)
-            .then( result => result.json().then((result)=>{
-                    //console.log(result);
-                    this.setState({
-                        isLoadedDepartments: true,
-                        departments: result
-                    });
-                    //console.log(this.state);
-                }),
-                (error) => {
-                    this.setState({
-                        error
-                    })
-                }
-            )
-    }
-    loadPositions(){
-        fetch(`${config.apiUrl}/api/Company/GetPositions`)
-            .then( result => result.json().then((result)=>{
-                    //console.log(result);
-                    this.setState({
-                        isLoadedPositions: true,
-                        positions: result
-                    });
-                    //console.log(this.state);
-                }),
-                (error) => {
-                    this.setState({
-                        error
-                    })
-                }
-            )
-    }
 
     render(){
-        const { error, isLoadedDepartments, isLoadedPositions,isLoadedUsers,users, positions, departments } = this.state;
+        const { error, isLoadedUsers,users} = this.state;
         if (error) {
             return <div>Ошибка: {error.message}</div>;
-        } else if (!isLoadedDepartments || !isLoadedPositions || !isLoadedUsers) {
+        } else if (!isLoadedUsers) {
             return <div className="container" style={ContainerStyle}><CircularProgress/></div>;
         } else {
             return  (
                 <div>
                     <h5>Users</h5>
                     <div className="container" style={ContainerStyle}>
-                        <NavLink>Add new Manager</NavLink>
-                        <UsersFilter handleChange={this.handleChange} positions={positions} department={departments}/>
+                        <NavLink href="/addUser">Add new Manager</NavLink>
+                        <UsersFilter handleChange={this.handleChange}/>
                         <UsersTable users={users}/>
                     </div>
                 </div>
