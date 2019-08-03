@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using HRMS_Server.Data;
 using HRMS_Server.Models.MemberModel;
 using HRMS_Server.Repository.Implementation;
 using HRMS_Server.Repository.Interfaces;
 using HRMS_Server.ViewModels;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRMS_Server.Controllers
@@ -28,16 +24,16 @@ namespace HRMS_Server.Controllers
 
         [HttpGet]
         [Route("Members")]
-        public ActionResult<IEnumerable<Member>> Members()
+        public async Task<ActionResult> Members()
         {
-            var members = _memberRepository.FindAll();
+            var members = await _memberRepository.FindAll();
             if (members != null) return Ok(members);
             return BadRequest(new {message="Members not found"});
         }
 
         [HttpPost]
         [Route("AddCandidate")]
-        public ActionResult<object> AddCandidate(RegisterMemberCandidate candidate)
+        public async Task<ActionResult> AddCandidate(RegisterMemberCandidate candidate)
         {
             var member = new Member
             {
@@ -61,15 +57,15 @@ namespace HRMS_Server.Controllers
 
             member.CandidateProfile = candidateProfile;
             
-            _memberRepository.Add(member);
+            await _memberRepository.Add(member);
             return Ok();
         }
 
         [HttpPost]
         [Route("AddEmployee")]
-        public ActionResult<object> AddEmployee(RegisterMemberEmployee employee)
+        public async Task<ActionResult> AddEmployee(RegisterMemberEmployee employee)
         {
-            var member = _memberRepository.FindById(employee.MemberId);
+            var member = await _memberRepository.FindById(employee.MemberId);
 
             var employeeProfile = new EmployeeProfile
             {
@@ -85,15 +81,15 @@ namespace HRMS_Server.Controllers
             member.EmployeeProfile = employeeProfile;
             member.Status = Status.Employee;
 
-            _memberRepository.Update(member);
+            await _memberRepository.Update(member);
             return Ok();
         }
 
         [HttpGet]
         [Route("GetMember/{id}")]
-        public ActionResult<object> GetMember(Guid id)
+        public async Task<ActionResult> GetMember(Guid id)
         {
-            var member = _memberRepository.FindById(id);
+            var member = await _memberRepository.FindById(id);
             if (member != null) return Ok(member);
             return BadRequest(new { message = "Member not found" });
         }

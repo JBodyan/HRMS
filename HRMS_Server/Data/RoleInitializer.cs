@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using HRMS_Server.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -28,6 +25,19 @@ namespace HRMS_Server.Data
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "Admin");
+                }
+            }
+
+            var managerEmail = "manager@gmail.com";
+            var mPassword = "Manager123456";
+           
+            if (await userManager.FindByNameAsync(managerEmail) == null)
+            {
+                var manager = new User { Email = managerEmail, UserName = "manager" };
+                var result = await userManager.CreateAsync(manager, mPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(manager, "Manager");
                 }
             }
         }
