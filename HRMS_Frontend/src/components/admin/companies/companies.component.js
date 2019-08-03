@@ -7,6 +7,7 @@ import {CompanyToolbox} from "./companyToolbox.component";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const ContainerStyle = {
+    marginTop:"20px",
     display: 'flex',
     justifyContent: 'center'
 };
@@ -58,6 +59,7 @@ export class Companies extends Component{
                 }
             )
     }
+
     loadPositions(){
         fetch(`${config.apiUrl}/api/Company/GetPositions`)
             .then( result => result.json().then((result)=>{
@@ -100,6 +102,7 @@ export class Companies extends Component{
                 }
             )
     };
+
     handleAddPosition = () =>{
         let auth = authHeader();
         fetch(`${config.apiUrl}/api/Company/AddPosition`,{
@@ -145,6 +148,7 @@ export class Companies extends Component{
                 }
             )
     };
+
     handleRemovePosition = id =>{
         let auth = authHeader();
         fetch(`${config.apiUrl}/api/Company/DeletePosition/${id}`,{
@@ -175,7 +179,7 @@ export class Companies extends Component{
         } else {
             return  (
             <div>
-                <h5>Companies</h5>
+                {/* <h5>Companies</h5> */}
                 <div className="container" style={ContainerStyle}>
                     <CompanyToolbox handleChange={this.handleChange} handleAddDepartment={this.handleAddDepartment} handleAddPosition={this.handleAddPosition}/>
                     <ElementContainer handleChange={this.handleChange} remove={this.handleRemoveDepartment} type={ElementType.Department} content={departments}/>
