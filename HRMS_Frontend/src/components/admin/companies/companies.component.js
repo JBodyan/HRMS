@@ -179,7 +179,6 @@ export class Companies extends Component{
         } else {
             return  (
             <div>
-                {/* <h5>Companies</h5> */}
                 <div className="container" style={ContainerStyle}>
                     <CompanyToolbox handleChange={this.handleChange} handleAddDepartment={this.handleAddDepartment} handleAddPosition={this.handleAddPosition}/>
                     <ElementContainer handleChange={this.handleChange} remove={this.handleRemoveDepartment} type={ElementType.Department} content={departments}/>

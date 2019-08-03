@@ -8,6 +8,7 @@ namespace HRMS_Server.Repository.Interfaces
     public interface IMemberRepository
     {
         Task<IEnumerable<Member>> FindAll(bool removed = false,bool archived = false);
+        Task<IEnumerable<Member>> FindAllCandidates();
         Task<Member> FindById(Guid id);
         Task<Member> Add(Member member);
         Task<Member> Update(Member member);

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Card from '@material-ui/core/Card';
-import config from 'config';
 import {CardProfile} from './cardProfile.component';
+import config from 'config';
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
@@ -10,11 +9,20 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import CardContent from "@material-ui/core/CardContent";
+import {CardListProfile} from './cardListProfile.component.js';
+import 'babel-polyfill'
 
 
 const ContainerStyle={
-  margin:"24px"
+  padding :"30px"
+};
+
+const ButtonGOStyle={
+  marginLeft:"16px"
+};
+
+const ButtonAddStyle={
+  marginTop:"60px"  
 };
 
 const MarginTopStyle={
@@ -22,12 +30,12 @@ const MarginTopStyle={
 };
 
 const ContentStyle =
-    {
-        display: "flex",
-        alignContent:"flex-start",
-        flexDirection: "row",
-        flexWrap: "wrap"
-    };
+{
+    display: "flex",
+    alignContent:"flex-start",
+    flexDirection: "row",
+    flexWrap: "wrap",
+};
 
 export class Recruitment extends Component{
 
@@ -37,17 +45,17 @@ export class Recruitment extends Component{
 
   render(){
       return  (
-        <Grid container spacing={2} style={ContainerStyle}>
+        <Grid container style={ContainerStyle}>
           <Grid item xs={3}>
-              <Grid container spacing={0}>
+              <Grid container>
                   <Grid item>
-                      <TextField/>
+                      <TextField placeholder="search..."/>
                   </Grid>
                   <Grid item>
-                      <Button>Search</Button>
+                      <Button variant="contained" style={ButtonGOStyle}>GO!</Button>
                   </Grid>
                 </Grid>
-                <Grid container spacing={2}> 
+                <Grid container> 
                 <FormControl component="fieldset" style={MarginTopStyle}>
                   <FormLabel component="legend">Gender</FormLabel>
                   <RadioGroup aria-label="gender"  name="gender">
@@ -56,22 +64,15 @@ export class Recruitment extends Component{
                   </RadioGroup>
                 </FormControl>              
               </Grid>
+              <Grid item>
+              <TextField style={MarginTopStyle} label="Birthday" type="date" defaultValue="1990-01-01" />
+              </Grid>
               <Grid>
-              <TextField style={MarginTopStyle}
-                  label="Birthday"
-                  type="date"
-                  defaultValue="1990-01-01"
-              />
+              <Button style={ButtonAddStyle} size="large" variant="contained">Add profile</Button>
               </Grid>
           </Grid>
-          <Grid item xs={9} style={ContentStyle}>
-                <CardProfile/>
-                <CardProfile/> 
-                <CardProfile/> 
-                <CardProfile/> 
-                <CardProfile/> 
-                <CardProfile/> 
-                <CardProfile/>
+          <Grid xs={9} item style={ContentStyle}>  
+          <CardListProfile/>
           </Grid>
         </Grid>
       );

@@ -14,10 +14,12 @@ import 'babel-polyfill'
          maxHeight: "200px",
          margin: 5
      };
+
  const TitleStyle =
      {
          fontSize: 20
      };
+     
  const ContentStyle =
     {
          fontSize: 10

@@ -67,5 +67,10 @@ namespace HRMS_Server.Repository.Implementation
             await _context.SaveChangesAsync();
             return member;
         }
+
+        public async Task<IEnumerable<Member>> FindAllCandidates()
+        {
+            return await _context.Members.Where(c => c.Status == Status.Candidate).AsNoTracking().ToArrayAsync();
+        }
     }
 }

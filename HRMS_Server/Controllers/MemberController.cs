@@ -31,6 +31,15 @@ namespace HRMS_Server.Controllers
             return BadRequest(new {message="Members not found"});
         }
 
+        [HttpGet]
+        [Route("Candidates")]
+        public async Task<ActionResult> Candidates()
+        {
+            var candidates = await _memberRepository.FindAllCandidates();
+            if (candidates != null) return Ok(candidates);
+            return BadRequest(new { message = "Candidates not found" });
+        }
+
         [HttpPost]
         [Route("AddCandidate")]
         public async Task<ActionResult> AddCandidate(RegisterMemberCandidate candidate)

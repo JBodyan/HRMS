@@ -18,7 +18,6 @@ export class Documents extends Component{
   render(){
       return  (
           <div>
-              {/* <h5>Documents</h5> */}
               <div className="filter-container" style={FilterContainerStyle}>
                 <DocumentFilter/>
               </div>
