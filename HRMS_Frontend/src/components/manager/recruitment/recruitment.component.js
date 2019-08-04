@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {CardProfile} from './cardProfile.component';
 import config from 'config';
 import Grid from '@material-ui/core/Grid';
 import Button from "@material-ui/core/Button";
@@ -10,7 +9,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import {CardListProfile} from './cardListProfile.component.js';
-import 'babel-polyfill'
+import { history } from '../../../_helpers/history';
+import 'babel-polyfill';
 
 
 const ContainerStyle={
@@ -41,6 +41,7 @@ export class Recruitment extends Component{
 
   constructor(props){
     super(props);
+    history.push('/recruitment');
   }
 
   render(){
@@ -59,8 +60,9 @@ export class Recruitment extends Component{
                 <FormControl component="fieldset" style={MarginTopStyle}>
                   <FormLabel component="legend">Gender</FormLabel>
                   <RadioGroup aria-label="gender"  name="gender">
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />  
+                  <FormControlLabel value="2" control={<Radio />} label="All" />
+                    <FormControlLabel value="1" control={<Radio />} label="Female" />
+                    <FormControlLabel value="0" control={<Radio />} label="Male" />  
                   </RadioGroup>
                 </FormControl>              
               </Grid>

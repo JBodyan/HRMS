@@ -11,6 +11,7 @@ import { Documents } from '../../components/manager/documents/documents.componen
 import { Calendar } from '../../components/manager/calendar/calendar.component.js';
 import { Payrole } from '../../components/manager/payrole/payrole.component.js';
 import { Role } from '../../_helpers/role';
+import {ProfileCandidate} from '../../components/manager/profileCandidate/profileCandidate.component.js';
 
 export class ManagerLayout extends Component {
  
@@ -44,6 +45,7 @@ render() {
       <PrivateRoute path="/documents" roles={[Role.Manager]} component={Documents} />
       <PrivateRoute path="/calendar" roles={[Role.Manager]} component={Calendar} />
       <PrivateRoute path="/payrole" roles={[Role.Manager]} component={Payrole} />
+      <PrivateRoute path="/profile/:id" roles={[Role.Manager]} component={ProfileCandidate} />
     </div>
 </Router>
     );

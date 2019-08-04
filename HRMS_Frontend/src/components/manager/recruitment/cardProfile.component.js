@@ -4,15 +4,16 @@ import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom'
 import 'babel-polyfill'
 
  const CardStyle =
      {
-         minWidth: "20%",
-         maxWidth: "20%",
+         minWidth: "21%",
+         maxWidth: "21%",
          minHeight: "200px",
          maxHeight: "200px",
-         margin: 5
+         margin: "2%"
      };
 
  const TitleStyle =
@@ -22,24 +23,27 @@ import 'babel-polyfill'
      
  const ContentStyle =
     {
-         fontSize: 10
+         fontSize: 12
      };
 
-export const CardProfile = (props) =>{
+export const CardProfile = (profile) =>{
         return  (
              <Card style={CardStyle}>
              <CardContent>
                  <Typography style={TitleStyle}>
-                     {/* {this.props.title} */}
-                     title
+                     {profile.firstName} {profile.lastName}
                  </Typography>
+                  <Typography style={ContentStyle}>
+                     {profile.birthDay.toString().substring(0,10)}
+                     </Typography>
                  <Typography style={ContentStyle}>
-                     {/* {this.props.content} */}
-                     lorem
+                     {profile.gender==0?"male":"female"}
                  </Typography>
              </CardContent>
-             <CardActions>
-                 <Button>open profile</Button>
+             <CardActions>                 
+                    <Link to={`/profile/${profile.id}`} props={profile.id} >
+                    <Button>Open profile</Button>
+                 </Link>
              </CardActions>
          </Card>
         );

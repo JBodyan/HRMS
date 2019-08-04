@@ -60,21 +60,19 @@ export class CardListProfile  extends React.Component{
         } else if (!isLoadedProfiles) {
             return <div className="container"><CircularProgress/></div>;
         } else { 
-
-            const items = []
-
-            for (const [index, value] of profiles) {
-                items.push(<CardProfile/>)
-            }
-            
-            if(items.length==0){
+            if(profiles.length==0){
                 return <div><p>There are any profiles at the data base!</p></div>;
             }
-            return (        
-                    <React.Fragment>
-                        {items}
-                    </React.Fragment>
+            else{
+                return (profiles.map((value)=>{
+                            return (<CardProfile key={value.id}
+                                 id={value.id} lastName={value.lastName}
+                                  firstName={value.firstName} 
+                                  email={value.email} gender={value.gender}
+                                  birthDay = {value.birthDay}/>);
+                        })
                 );
+            }
         }
     }
 }

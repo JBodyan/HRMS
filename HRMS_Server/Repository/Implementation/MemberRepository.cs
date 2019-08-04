@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HRMS_Server.Data;
+using HRMS_Server.DTO;
 using HRMS_Server.Models.MemberModel;
 using HRMS_Server.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -68,9 +69,19 @@ namespace HRMS_Server.Repository.Implementation
             return member;
         }
 
-        public async Task<IEnumerable<Member>> FindAllCandidates()
+        public async Task<IEnumerable<MemberDTO>> FindAllCandidates()
         {
-            return await _context.Members.Where(c => c.Status == Status.Candidate).AsNoTracking().ToArrayAsync();
+            return await _context.Members.Where(c => c.Status == Status.Candidate)
+                                         .Select(c=>new MemberDTO()
+                                         {
+                                             Id = c.Id,
+                                             BirthDay = c.BirthDate,
+                                             FirstName = c.FirstName,
+                                             Gender = c.Gender,
+                                             LastName= c.LastName
+                                         })
+                                         .AsNoTracking()
+                                         .ToArrayAsync();
         }
     }
 }
