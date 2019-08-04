@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using HRMS_Server.Models;
 using HRMS_Server.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ namespace HRMS_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowMyOrigin")]
     public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -61,12 +63,13 @@ namespace HRMS_Server.Controllers
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var roles = await _userManager.GetRolesAsync(user);
+                var identityOptions = new IdentityOptions();
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
                         new Claim("UserID", user.Id),
-                        new Claim(ClaimTypes.Role,roles[0])
+                        new Claim(identityOptions.ClaimsIdentity.RoleClaimType,roles[0])
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(
@@ -76,8 +79,7 @@ namespace HRMS_Server.Controllers
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                
-                return Ok(new {token = token, roles = roles});
+               return Ok(new {token = token, username=user.UserName, role = roles[0]});
             }
             else
             {

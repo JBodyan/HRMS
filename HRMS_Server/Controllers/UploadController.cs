@@ -7,7 +7,6 @@ using HRMS_Server.Data;
 using HRMS_Server.Models;
 using HRMS_Server.Repository.Implementation;
 using HRMS_Server.Repository.Interfaces;
-using HRMS_Server.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,14 +24,14 @@ namespace HRMS_Server.Controllers
             _userManager = userManager;
             _memberRepository = new MemberRepository(context);
         }
-        
+
         [HttpPost]
         [Route("CurriculumVitae/{id}")]
-        public ActionResult<object> UploadCurriculumVitae(IFormFile file,Guid id)
+        public async Task<ActionResult> UploadCurriculumVitae(IFormFile file, Guid id)
         {
-            
+
             if (file == null) return BadRequest("File not found");
-            var member = _memberRepository.FindById(id);
+            var member = await _memberRepository.FindById(id);
             if (member == null) return BadRequest("Member not found");
 
             try
@@ -43,15 +42,15 @@ namespace HRMS_Server.Controllers
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "CV", fileName);
                     file.CopyTo(new FileStream(filePath, FileMode.Create));
                     member.CandidateProfile.CurriculumVitae = fileName;
-                    return Ok(new {message = "File successfuly uploaded"});
+                    return Ok(new { message = "File successfuly uploaded" });
                 }
             }
             catch (Exception ex)
             {
-                return BadRequest(new {message = "Upload failed"});
+                return BadRequest(new { message = "Upload failed" });
             }
 
-            return BadRequest(new {message = "Upload failed: candidate profile not found"});
+            return BadRequest(new { message = "Upload failed: candidate profile not found" });
 
         }
 
@@ -66,13 +65,11 @@ namespace HRMS_Server.Controllers
 
             try
             {
-                
-                    var fileName = Guid.NewGuid() + file.FileName;
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "UserPhoto", fileName);
-                    file.CopyTo(new FileStream(filePath, FileMode.Create));
-                    user.Photo = fileName;
-                    return Ok(new { message = "Photo successfuly uploaded" });
-                
+                var fileName = Guid.NewGuid() + file.FileName;
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "UserPhoto", fileName);
+                file.CopyTo(new FileStream(filePath, FileMode.Create));
+                user.Photo = fileName;
+                return Ok(new { message = "Photo successfuly uploaded" });
             }
             catch (Exception ex)
             {
@@ -82,11 +79,11 @@ namespace HRMS_Server.Controllers
 
         [HttpPost]
         [Route("MemberPhoto/{id}")]
-        public ActionResult<object> UploadMemberPhoto(IFormFile file, Guid id)
+        public async Task<ActionResult> UploadMemberPhoto(IFormFile file, Guid id)
         {
 
             if (file == null) return BadRequest("File not found");
-            var member = _memberRepository.FindById(id);
+            var member = await _memberRepository.FindById(id);
             if (member == null) return BadRequest("Member not found");
 
             try
@@ -104,9 +101,7 @@ namespace HRMS_Server.Controllers
             {
                 return BadRequest(new { message = "Upload failed" });
             }
-
             return BadRequest(new { message = "Upload failed: emlployee profile not found" });
-
         }
     }
 }

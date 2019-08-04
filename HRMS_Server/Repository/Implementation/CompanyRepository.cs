@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HRMS_Server.Data;
 using HRMS_Server.Models.MemberModel;
 using HRMS_Server.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRMS_Server.Repository.Implementation
 {
@@ -16,69 +17,69 @@ namespace HRMS_Server.Repository.Implementation
             _context = context;
         }
 
-        public Department GetDepartmentById(Guid id)
+        public async Task<Department> GetDepartmentById(Guid id)
         {
-            return _context.Departments.FirstOrDefault(d => d.Id == id);
+            return await _context.Departments.FirstOrDefaultAsync(d => d.Id == id);
         }
 
-        public Position GetPositionById(Guid id)
+        public async Task<Position> GetPositionById(Guid id)
         {
-            return _context.Positions.FirstOrDefault(p => p.Id == id);
+            return await _context.Positions.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public IEnumerable<Department> GetAllDepartments()
+        public async Task<IEnumerable<Department>> GetAllDepartments()
         {
-            return _context.Departments;
+            return await _context.Departments.AsNoTracking().ToListAsync();
         }
 
-        public IEnumerable<Position> GetAllPositions()
+        public async Task<IEnumerable<Position>> GetAllPositions()
         {
-            return _context.Positions;
+            return await _context.Positions.AsNoTracking().ToListAsync();
         }
 
-        public Department AddDepartment(Department department)
+        public async Task<Department> AddDepartment(Department department)
         {
             _context.Departments.Add(department);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return department;
         }
 
-        public Position AddPosition(Position position)
+        public async Task<Position> AddPosition(Position position)
         {
             _context.Positions.Add(position);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return position;
         }
 
-        public Department UpdateDepartment(Department department)
+        public async Task<Department> UpdateDepartment(Department department)
         {
             _context.Departments.Update(department);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return department;
         }
 
-        public Position UpdatePosition(Position position)
+        public async Task<Position> UpdatePosition(Position position)
         {
             _context.Positions.Update(position);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return position;
         }
 
-        public Department DeleteDepartment(Guid id)
+        public async Task<Department> DeleteDepartment(Guid id)
         {
             var department = _context.Departments.FirstOrDefault(d => d.Id == id);
             if (department == null) return null;
             _context.Departments.Remove(department);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return department;
         }
 
-        public Position DeletePosition(Guid id)
+        public async Task<Position> DeletePosition(Guid id)
         {
             var position = _context.Positions.FirstOrDefault(p => p.Id == id);
             if (position == null) return null;
             _context.Positions.Remove(position);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return position;
         }
     }

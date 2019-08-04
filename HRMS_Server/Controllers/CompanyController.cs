@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using HRMS_Server.Data;
 using HRMS_Server.Models.MemberModel;
 using HRMS_Server.Repository.Implementation;
 using HRMS_Server.Repository.Interfaces;
 using HRMS_Server.ViewModels;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace HRMS_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowMyOrigin")]
     public class CompanyController : ControllerBase
     {
         private readonly ICompanyRepository _companyRepository;
@@ -27,67 +26,71 @@ namespace HRMS_Server.Controllers
 
         [HttpPost]
         [Route("AddDepartment")]
-        public ActionResult<object> AddDepartment(RegisterDepartment model)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> AddDepartment(RegisterDepartment model)
         {
             if (string.IsNullOrEmpty(model.Name)) return BadRequest("Name cannot be null or empty");
             var department = new Department
             {
                 Name = model.Name
             };
-            var result = _companyRepository.AddDepartment(department);
+            var result = await _companyRepository.AddDepartment(department);
             if (result != null) return Ok(new {message = "Department successfuly added"});
             return BadRequest(new {message = "Error adding department"});
         }
 
         [HttpPost]
         [Route("AddPosition")]
-        public ActionResult<object> AddPosition(RegisterPosition model)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> AddPosition(RegisterPosition model)
         {
             if (string.IsNullOrEmpty(model.Name)) return BadRequest("Name cannot be null or empty");
             var position = new Position
             {
                 Name = model.Name
             };
-            var result = _companyRepository.AddPosition(position);
+            var result = await _companyRepository.AddPosition(position);
             if (result != null) return Ok(new { message = "Position successfuly added" });
             return BadRequest(new { message = "Error adding position" });
         }
 
         [HttpGet]
         [Route("GetDepartments")]
-        public ActionResult<object> Departments()
+        public async Task<ActionResult> Departments()
         {
-            var result = _companyRepository.GetAllDepartments();
+            var result = await _companyRepository.GetAllDepartments();
             if (result != null) return Ok(result);
             return BadRequest(new { message = "Departments not found" });
         }
 
         [HttpGet]
         [Route("GetPositions")]
-        public ActionResult<object> Positons()
+        public async Task<ActionResult> Positons()
         {
-            var result = _companyRepository.GetAllPositions();
+            var result = await _companyRepository.GetAllPositions();
             if (result != null) return Ok(result);
             return BadRequest(new { message = "Positions not found" });
         }
 
         [HttpDelete]
         [Route("DeleteDepartment/{id}")]
-        public ActionResult<object> DeleteDepartment(Guid id)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> DeleteDepartment(Guid id)
         {
-            var department = _companyRepository.GetDepartmentById(id);
+            var department = await _companyRepository.GetDepartmentById(id);
             if (department == null) return BadRequest(new {message = "Department not found"});
-            _companyRepository.DeleteDepartment(id);
+            await _companyRepository.DeleteDepartment(id);
             return Ok(new {message = "Department successfuly deleted"});
         }
 
         [HttpDelete]
         [Route("DeletePosition/{id}")]
-        public ActionResult<object> DeletePosition(Guid id)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> DeletePosition(Guid id)
         {
-            var position = _companyRepository.GetPositionById(id);
+            var position = await _companyRepository.GetPositionById(id);
             if (position == null) return BadRequest(new { message = "Position not found" });
-            _companyRepository.DeletePosition(id);
+            await _companyRepository.DeletePosition(id);
             return Ok(new { message = "Position successfuly deleted" });
         }
     }

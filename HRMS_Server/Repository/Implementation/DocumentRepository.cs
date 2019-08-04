@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HRMS_Server.Data;
 using HRMS_Server.Models.DocumentModel;
 using HRMS_Server.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRMS_Server.Repository.Implementation
 {
@@ -16,59 +17,59 @@ namespace HRMS_Server.Repository.Implementation
         {
             _context = context;
         }
-        public IEnumerable<Document> FindAll()
+        public async Task<IEnumerable<Document>> FindAll()
         {
-            return _context.Documents;
+            return await _context.Documents.AsNoTracking().ToListAsync();
         }
 
-        public IEnumerable<Document> FindAllByFilter(IEnumerable<DocumentCategory> categories, IEnumerable<DocumentTag> tags)
+        public async Task<IEnumerable<Document>> FindAllByFilter(IEnumerable<DocumentCategory> categories, IEnumerable<DocumentTag> tags)
         {
             //FIXME: Create impl for this method
             return null;
         }
 
-        public IEnumerable<Document> FindAllDeleted()
+        public async Task<IEnumerable<Document>> FindAllDeleted()
         {
-            return _context.Documents.Where(d => d.IsDeleted);
+            return await _context.Documents.Where(d => d.IsDeleted).ToListAsync();
         }
 
-        public Document Add(Document document)
+        public async Task<Document> Add(Document document)
         {
             _context.Documents.Add(document);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return document;
         }
 
-        public IEnumerable<Document> FindByName(string name)
+        public async Task<IEnumerable<Document>> FindByName(string name)
         {
-            return _context.Documents.Where(d => d.Name == name);
+            return await _context.Documents.Where(d => d.Name == name).ToListAsync();
         }
 
-        public IEnumerable<Document> FindByUserId(string id)
+        public async Task<IEnumerable<Document>> FindByUserId(string id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
-            return user == null ? null : _context.Documents.Where(d => d.User == user);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            return (user == null) ? null : await _context.Documents.Where(d => d.User == user).ToListAsync();
         }
 
-        public Document FindById(Guid id)
+        public async Task<Document> FindById(Guid id)
         {
-            return _context.Documents.FirstOrDefault(d => d.Id == id);
+            return await _context.Documents.FirstOrDefaultAsync(d => d.Id == id);
         }
 
-        public Document Update(Document document)
+        public async Task<Document> Update(Document document)
         {
             _context.Documents.Update(document);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return document;
         }
 
-        public Document RemovedStatus(Guid id,bool removed)
+        public async Task<Document> RemovedStatus(Guid id, bool removed)
         {
-            var document = _context.Documents.FirstOrDefault(d => d.Id == id);
+            var document = await _context.Documents.FirstOrDefaultAsync(d => d.Id == id);
             if (document == null) return null;
             document.IsDeleted = removed;
             _context.Documents.Update(document);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return document;
         }
     }
