@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 
 namespace HRMS_Server.Controllers
@@ -40,6 +41,11 @@ namespace HRMS_Server.Controllers
             //if (!ModelState.IsValid) return BadRequest(model);
             var user = new User
             {
+                
+                FirstName = model.FirstName,
+                SecondName = model.SecondName,
+                LastName = model.LastName,
+                PhoneNumber = model.Phone,
                 UserName = model.UserName,
                 Email = model.Email
             };
@@ -47,7 +53,7 @@ namespace HRMS_Server.Controllers
             {
                 var result = await _userManager.CreateAsync(user, model.Password);
                 await _userManager.AddToRoleAsync(user, "Manager");
-                return Ok(result);
+                return Ok(new {message = result,id=user.Id});
             }
             catch (Exception ex)
             {

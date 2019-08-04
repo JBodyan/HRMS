@@ -7,6 +7,7 @@ using HRMS_Server.Data;
 using HRMS_Server.Models;
 using HRMS_Server.Repository.Implementation;
 using HRMS_Server.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -55,6 +56,7 @@ namespace HRMS_Server.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("UserPhoto/{id}")]
         public async Task<object> UploadUserPhoto(IFormFile file, string id)
         {
@@ -66,14 +68,14 @@ namespace HRMS_Server.Controllers
             try
             {
                 var fileName = Guid.NewGuid() + file.FileName;
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "UserPhoto", fileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "UsersPhoto", fileName);
                 file.CopyTo(new FileStream(filePath, FileMode.Create));
                 user.Photo = fileName;
                 return Ok(new { message = "Photo successfuly uploaded" });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = "Upload failed" });
+                return BadRequest(new { message = "Upload failed",error=ex.Message });
             }
         }
 

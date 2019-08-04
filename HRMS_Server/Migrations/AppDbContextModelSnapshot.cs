@@ -24,6 +24,8 @@ namespace HRMS_Server.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("CategoryId");
+
                     b.Property<DateTime>("DeletionDate");
 
                     b.Property<bool>("IsDeleted");
@@ -40,6 +42,8 @@ namespace HRMS_Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Documents");
@@ -50,13 +54,9 @@ namespace HRMS_Server.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("DocumentId");
-
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DocumentId");
 
                     b.ToTable("DocumentCategories");
                 });
@@ -379,23 +379,26 @@ namespace HRMS_Server.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
                     b.Property<string>("Photo");
+
+                    b.Property<string>("SecondName");
 
                     b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("HRMS_Server.Models.DocumentModel.Document", b =>
                 {
+                    b.HasOne("HRMS_Server.Models.DocumentModel.DocumentCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("HRMS_Server.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("HRMS_Server.Models.DocumentModel.DocumentCategory", b =>
-                {
-                    b.HasOne("HRMS_Server.Models.DocumentModel.Document")
-                        .WithMany("Categories")
-                        .HasForeignKey("DocumentId");
                 });
 
             modelBuilder.Entity("HRMS_Server.Models.DocumentModel.DocumentTag", b =>

@@ -7,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import {Link} from "react-router-dom";
 
 const ElementStyle={
     margin: 5
@@ -23,17 +24,19 @@ export const UsersTable = (props) =>{
                                 <TableCell>Name</TableCell>
                                 <TableCell align="left">UserName</TableCell>
                                 <TableCell align="left">Email</TableCell>
+                                <TableCell align="left">Action</TableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {props.users.map(user => (
                                 <TableRow key={user.id}>
                                     <TableCell component="th" scope="row">
-                                        {user.name}
+                                        {user.firstName} {user.secondName} {user.lastName}
                                     </TableCell>
                                     <TableCell align="left">{user.userName}</TableCell>
                                     <TableCell align="left">{user.email}</TableCell>
-                                    <TableCell align="left"><Button href={"/userProfile/"+user.id}>Info</Button></TableCell>
+                                    <TableCell align="left"><Link to={`/userProfile/${user.id}`}><Button>Profile</Button></Link></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

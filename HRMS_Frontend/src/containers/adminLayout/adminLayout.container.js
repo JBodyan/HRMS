@@ -37,7 +37,7 @@ render() {
       <PrivateRoute exact  path="/" component={HomeAdmin} />   
       <PrivateRoute path="/users" roles={[Role.Admin]} component={Users} />   
       <PrivateRoute path="/companies" roles={[Role.Admin]} component={Companies} />
-      <PrivateRoute path="/userProfile/{id}" roles={[Role.Admin]} component={UserProfile}/>
+      <PrivateRoute path="/userProfile/:id" roles={[Role.Admin]} component={UserProfile}/>
       <PrivateRoute path="/addUser" roles={[Role.Admin]} component={UserAdd}/>
     </div>
 </Router>
