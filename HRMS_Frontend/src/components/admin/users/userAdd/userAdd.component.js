@@ -52,7 +52,6 @@ export class UserAdd extends Component{
             .then( result => result.json().then((result)=>{
                     console.log(result);
                     alert(result.message);
-                    history.push("/users");
                 }),
                 (error) => {
                     alert(error);
