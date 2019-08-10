@@ -16,6 +16,7 @@
     "file-upload-with-preview": "^4.0.2",
     "history": "^4.9.0",
     "image-webpack-loader": "^5.0.0",
+    "mui-datatables": "^2.7.0",
     "react": "^16.7.0",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.7.0",

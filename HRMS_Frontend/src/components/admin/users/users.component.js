@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import config from 'config';
 import {authHeader} from "../../../_helpers/authHeader"
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {UsersFilter} from "./usersFilter.component";
-import {UsersTable} from "./usersTable";
-import Link from "@material-ui/core/Link";
 import NavLink from "react-bootstrap/NavLink";
+import {Redirect} from "react-router";
+import MUIDataTable from "mui-datatables";
 
 const ContainerStyle = {
     display: 'flex',
@@ -13,16 +12,94 @@ const ContainerStyle = {
     flexDirection: 'column'
 };
 
+const ElementStyle={
+    margin: 5
+};
+
+
+
+
 export class Users extends Component{
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             error: null,
             isLoadedUsers: false,
-            users: []
-        };
+            users: [],
+            redirectToUser: false,
+            redirectId: "",
+            dataTableColumns: [
+                {
+                    name: "firstName",
+                    label: "First Name",
+                    options: {
+                        filter: true,
+                        sort: true,
+                    }
+                },
+                {
+                    name: "secondName",
+                    label: "Second Name",
+                    options: {
+                        filter: true,
+                        sort: true,
+                    }
+                },
+                {
+                    name: "lastName",
+                    label: "Last Name",
+                    options: {
+                        filter: true,
+                        sort: true,
+                    }
+                },
+                {
+                    name: "email",
+                    label: "Email",
+                    options: {
+                        filter: true,
+                        sort: true,
+                    }
+                },
+                {
+                    name: "phoneNumber",
+                    label: "Phone",
+                    options: {
+                        filter: true,
+                        sort: true,
+                    }
+                },
+                {
+                    name: "id",
+                    options: {
+                        print: false,
+                        download: false,
+                        viewColumns: false,
+                        display: false,
+                        filter: false,
+                        sort: false,
+                    }
+                }
+            ],
+            options: {
+                filterType: 'textField',
+                selectableRows: 'none',
+                onRowClick: (rowData, rowMeta, e) => {
+                    this.setState({
+                        redirectToUser: true,
+                        redirectId: rowData[5]
+                    });
+                }
+            }
+
+        }
+
     }
+
+    onClickUserRow= (rowData,rowMeta,e)=>{
+
+    };
 
     handleChange = event => {
         this.setState({
@@ -59,7 +136,8 @@ export class Users extends Component{
     };
 
     render(){
-        const { error, isLoadedUsers,users} = this.state;
+        const { error, isLoadedUsers,users, redirectToUser, redirectId} = this.state;
+        if (redirectToUser) {<Redirect to={`/userProfile/${redirectId}`}/>}
         if (error) {
             return <div>Ошибка: {error.message}</div>;
         } else if (!isLoadedUsers) {
@@ -70,8 +148,12 @@ export class Users extends Component{
                     <h5>Users</h5>
                     <div className="container" style={ContainerStyle}>
                         <NavLink href="/addUser">Add new Manager</NavLink>
-                        <UsersFilter handleChange={this.handleChange}/>
-                        <UsersTable users={users}/>
+                        <MUIDataTable
+                            title={"Users"}
+                            data={users}
+                            columns={this.state.dataTableColumns}
+                            options={this.state.options}
+                        />
                     </div>
                 </div>
             );

@@ -71,6 +71,7 @@ namespace HRMS_Server.Controllers
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "UsersPhoto", fileName);
                 file.CopyTo(new FileStream(filePath, FileMode.Create));
                 user.Photo = fileName;
+                await _userManager.UpdateAsync(user);
                 return Ok(new { message = "Photo successfuly uploaded" });
             }
             catch (Exception ex)
@@ -96,6 +97,7 @@ namespace HRMS_Server.Controllers
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "MemberPhoto", fileName);
                     file.CopyTo(new FileStream(filePath, FileMode.Create));
                     member.EmployeeProfile.Photo = fileName;
+                    await _memberRepository.Update(member);
                     return Ok(new { message = "File successfuly uploaded" });
                 }
             }
