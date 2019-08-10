@@ -5,19 +5,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import NavLink from "react-bootstrap/NavLink";
 import {Redirect} from "react-router";
 import MUIDataTable from "mui-datatables";
+import { history } from '../../../_helpers/history.js';
 
 const ContainerStyle = {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column'
 };
-
-const ElementStyle={
-    margin: 5
-};
-
-
-
 
 export class Users extends Component{
 
@@ -86,20 +80,18 @@ export class Users extends Component{
                 filterType: 'textField',
                 selectableRows: 'none',
                 onRowClick: (rowData, rowMeta, e) => {
-                    this.setState({
+                    history.push(`/userProfile/${rowData[5]}`)
+                        this.setState({
                         redirectToUser: true,
                         redirectId: rowData[5]
                     });
+
                 }
             }
 
         }
 
     }
-
-    onClickUserRow= (rowData,rowMeta,e)=>{
-
-    };
 
     handleChange = event => {
         this.setState({
@@ -137,7 +129,7 @@ export class Users extends Component{
 
     render(){
         const { error, isLoadedUsers,users, redirectToUser, redirectId} = this.state;
-        if (redirectToUser) {<Redirect to={`/userProfile/${redirectId}`}/>}
+        if (redirectToUser) return <Redirect to={{pathname:`/userProfile/${redirectId}`}}/>;
         if (error) {
             return <div>Ошибка: {error.message}</div>;
         } else if (!isLoadedUsers) {
