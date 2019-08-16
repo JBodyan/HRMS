@@ -80,12 +80,12 @@ export class Users extends Component{
                 filterType: 'textField',
                 selectableRows: 'none',
                 onRowClick: (rowData, rowMeta, e) => {
-                    history.push(`/userProfile/${rowData[5]}`)
+                    console.log(this.props);
+                    this.props.history.push(`/userProfile/${rowData[5]}`)
                         this.setState({
                         redirectToUser: true,
                         redirectId: rowData[5]
                     });
-
                 }
             }
 
