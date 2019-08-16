@@ -3,6 +3,14 @@ import { history } from '../../../_helpers/history';
 import 'babel-polyfill';
 import {authHeader} from "../../../_helpers/authHeader";
 import config from 'config';
+import Card from "@material-ui/core/Card";
+import TextField from "../../admin/users/userProfile/userProfile.component";
+
+const ContainerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column'
+};
 
 export class ProfileCandidate extends React.Component{
 
@@ -46,8 +54,17 @@ export class ProfileCandidate extends React.Component{
     };
 
     render(){
-        const {member} = this.state.member;
-        return (<div>{member.firstName}</div>)
+        return (
+            <div>
+                <h5>CandidateProfile</h5>
+                <div className="container" style={ContainerStyle}>
+                    <div>{this.state.member.firstName} {this.state.member.secondName} {this.state.member.lastName}</div>
+                    <div>Birth: {this.state.member.birthDate}</div>
+                    <div>Skype: {this.state.member.skype}</div>
+                    <div>Phone: {this.state.member.phone}</div>
+                </div>
+            </div>
+        )
 
     }
 }

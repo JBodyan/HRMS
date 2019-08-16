@@ -128,7 +128,7 @@ export class UserProfile extends Component{
     };
 
     render(){
-        const { error, isLoadedUser, user} = this.state;
+        const { error, isLoadedUser} = this.state;
         if (error) {
             return <div>Ошибка: {error.message}</div>;
         } else if (!isLoadedUser) {
