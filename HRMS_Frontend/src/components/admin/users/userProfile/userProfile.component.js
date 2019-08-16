@@ -3,7 +3,6 @@ import config from 'config';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {authHeader} from "../../../../_helpers/authHeader";
 import TextField from "@material-ui/core/TextField";
-import Image from "react-bootstrap/Image";
 import Button from "@material-ui/core/Button";
 
 

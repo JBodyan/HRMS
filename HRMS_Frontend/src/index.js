@@ -7,5 +7,5 @@ const routing = (
     <App/>
 );
 
-ReactDOM.render( routing , document.getElementById('root'))
+ReactDOM.render( routing , document.getElementById('root'));
 module.hot.accept();
